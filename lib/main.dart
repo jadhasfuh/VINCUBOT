@@ -76,8 +76,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Vincubot",
+        title: const Center(
+          child: CircleAvatar(
+            backgroundImage: AssetImage("assets/bot.png"),
+          ),
         ),
       ),
       body: Column(
@@ -86,16 +88,18 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(top: 15, bottom: 10),
             child: Text(
               "Today, ${DateFormat("Hm").format(DateTime.now())}",
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 12),
             ),
           ),
           Flexible(
-              child: ListView.builder(
-                  reverse: true,
-                  itemCount: messsages.length,
-                  itemBuilder: (context, index) => chat(
-                      messsages[index]["message"].toString(),
-                      messsages[index]["data"]))),
+            child: ListView.builder(
+              reverse: true,
+              itemCount: messsages.length,
+              itemBuilder: (context, index) => chat(
+                  messsages[index]["message"].toString(),
+                  messsages[index]["data"]),
+            ),
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -104,11 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Color.fromRGBO(28, 50, 92, 1),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.camera_alt,
-              color: Color.fromRGBO(28, 50, 92, 1),
-              size: 35,
-            ),
             title: Container(
               height: 35,
               decoration: const BoxDecoration(
@@ -126,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
+                  contentPadding: EdgeInsets.zero,
                 ),
                 style: const TextStyle(fontSize: 16, color: Colors.black),
                 onChanged: (value) {},
@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           const SizedBox(
             height: 15.0,
-          )
+          ),
         ],
       ),
     );
