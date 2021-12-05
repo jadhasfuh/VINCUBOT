@@ -1,5 +1,6 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
@@ -80,14 +81,39 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  void envioMensaje() {
+    if (messageInsert.text.isNotEmpty) {
+      setState(() {
+        messsages.insert(0, {"data": 1, "message": messageInsert.text});
+      });
+      response(messageInsert.text);
+      messageInsert.clear();
+    }
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
+  List<LogicalKeyboardKey> keys = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: CircleAvatar(
-            backgroundImage: AssetImage("assets/bot.png"),
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/bot.png',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text('Vincubot'),
+            )
+          ],
         ),
       ),
       body: Column(
@@ -146,18 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Color.fromRGBO(28, 50, 92, 1),
                 ),
                 onPressed: () {
-                  if (messageInsert.text.isNotEmpty) {
-                    setState(() {
-                      messsages.insert(
-                          0, {"data": 1, "message": messageInsert.text});
-                    });
-                    response(messageInsert.text);
-                    messageInsert.clear();
-                  }
-                  FocusScopeNode currentFocus = FocusScope.of(context);
-                  if (!currentFocus.hasPrimaryFocus) {
-                    currentFocus.unfocus();
-                  }
+                  envioMensaje();
                 }),
           ),
           const SizedBox(
