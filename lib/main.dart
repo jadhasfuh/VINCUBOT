@@ -1,6 +1,7 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
 
 void main() {
@@ -16,7 +17,7 @@ MaterialColor createMaterialColor(Color color) {
     strengths.add(0.1 * i);
   }
 
-  strengths.forEach((strength) {
+  for (var strength in strengths) {
     final double ds = 0.5 - strength;
     swatch[(strength * 1000).round()] = Color.fromRGBO(
       r + ((ds < 0 ? r : (255 - r)) * ds).round(),
@@ -24,7 +25,7 @@ MaterialColor createMaterialColor(Color color) {
       b + ((ds < 0 ? b : (255 - b)) * ds).round(),
       1,
     );
-  });
+  }
   return MaterialColor(color.value, swatch);
 }
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'VincuBot',
       theme: ThemeData(
-        primarySwatch: createMaterialColor(Color.fromRGBO(28, 50, 92, 1)),
+        primarySwatch: createMaterialColor(const Color.fromRGBO(28, 50, 92, 1)),
       ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'VincuBot'),
@@ -71,6 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final messageInsert = TextEditingController();
   List<Map> messsages = [];
+
+  @override
+  void initState() {
+    List<String> saludos = ["¡Hola!", "¿Qué tal?", "Holi"];
+    messsages.insert(0, {"data": 0, "message": (saludos..shuffle()).first});
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
