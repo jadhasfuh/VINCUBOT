@@ -73,11 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final messageInsert = TextEditingController();
   List<Map> messsages = [];
+  String user = "assets/user.png";
 
   @override
   void initState() {
     List<String> saludos = ["¡Hola!", "¿Qué tal?", "Holi"];
     messsages.insert(0, {"data": 0, "message": (saludos..shuffle()).first});
+    List<String> opUser = ["assets/user.png", "assets/user2.png"];
+    user = (opUser..shuffle()).first;
     super.initState();
   }
 
@@ -230,12 +233,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )),
           ),
-          data == 1
+          data == 1 && user == "assets/user.png"
               ? const SizedBox(
                   height: 60,
                   width: 60,
                   child: CircleAvatar(
                     backgroundImage: AssetImage("assets/user.png"),
+                  ),
+                )
+              : Container(),
+          data == 1 && user == "assets/user2.png"
+              ? const SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/user2.png"),
                   ),
                 )
               : Container(),
