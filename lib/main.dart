@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/bot.png',
+              'assets/logo.png',
               fit: BoxFit.contain,
               height: 32,
             ),
